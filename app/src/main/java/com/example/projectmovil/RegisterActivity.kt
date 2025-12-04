@@ -1,22 +1,35 @@
 package com.example.projectmovil
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+// --------- ⬇️ IMPORTS NECESARIOS DE ROOM Y COROUTINES ⬇️ ---------
+import com.example.projectmovil.data.database.AppDatabase
+import com.example.projectmovil.data.dao.UsuarioDao
+import com.example.projectmovil.data.entity.UsuarioEntity
+import kotlinx.coroutines.*
+// -------------------------------------------------------------------
 
 class RegisterActivity : AppCompatActivity() {
 
     private var selectedObjective: String = ""
     private var selectedGender: String = ""
 
+    private lateinit var usuarioDao: UsuarioDao
+    private val scope = CoroutineScope(Dispatchers.Main + Job())
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        usuarioDao = AppDatabase.getDatabase(applicationContext).usuarioDao()
+
+        // --- Declaración de Vistas ---
         val etFirstName = findViewById<EditText>(R.id.et_first_name)
         val etLastName = findViewById<EditText>(R.id.et_last_name)
         val etEmail = findViewById<EditText>(R.id.et_email)
@@ -36,9 +49,7 @@ class RegisterActivity : AppCompatActivity() {
         val spWeightUnit = findViewById<Spinner>(R.id.sp_weight_unit)
         val etTargetWeight = findViewById<EditText>(R.id.et_target_weight)
 
-        // TextView para mostrar el IMC
         val tvBmiResult = findViewById<TextView>(R.id.tv_bmi_result)
-
         val spActivityLevel = findViewById<Spinner>(R.id.sp_activity_level)
 
         val cbDiabetes = findViewById<CheckBox>(R.id.cb_diabetes)
@@ -69,6 +80,7 @@ class RegisterActivity : AppCompatActivity() {
         val btnRegister = findViewById<Button>(R.id.btn_register)
         val btnCancel = findViewById<Button>(R.id.btn_cancel)
 
+        // --- Inicialización y Listeners ---
         etMedicalOther.isEnabled = false
         etAllergyOther.isEnabled = false
 
@@ -175,8 +187,14 @@ class RegisterActivity : AppCompatActivity() {
         btnCancel.setOnClickListener {
             finish()
         }
+        // --- Fin de Inicialización y Listeners ---
 
+
+        // *******************************************************************
+        // LÓGICA DE REGISTRO CON ROOM
+        // *******************************************************************
         btnRegister.setOnClickListener {
+            // --- INICIO DE VALIDACIONES ---
             if (etFirstName.text.isBlank()) {
                 Toast.makeText(this, "Por favor ingresa tu nombre", Toast.LENGTH_SHORT).show()
                 etFirstName.requestFocus()
@@ -263,49 +281,65 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor selecciona tu nivel de actividad", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            // --- FIN DE VALIDACIONES ---
 
             // Calcular IMC final
-            val bmi = calculateBMI(
-                height,
-                spHeightUnit.selectedItem.toString(),
-                weight,
-                spWeightUnit.selectedItem.toString()
+            val bmi = calculateBMI(height!!, spHeightUnit.selectedItem.toString(), weight!!, spWeightUnit.selectedItem.toString())
+
+            // Mapeo de datos complejos a CSV
+            val medicalConditionsStr = getMedicalConditions(cbDiabetes, cbEatingDisorder, cbThyroid, cbRenal, cbDigestive, cbPregnancy, cbMedicalOther, etMedicalOther).joinToString(separator = ",")
+            val dietaryPreferencesStr = getDietaryPreferences(cbVegetarian, cbVegan, cbPescetarian, cbKeto, cbPaleo, cbDietNone).joinToString(separator = ",")
+            val allergiesStr = getAllergies(cbGluten, cbLactose, cbNuts, cbShellfish, cbAllergyOther, etAllergyOther).joinToString(separator = ",")
+
+            // Crear el objeto UsuarioEntity
+            val nuevoUsuario = UsuarioEntity(
+                nombre = etFirstName.text.toString().trim(),
+                apellido = etLastName.text.toString().trim(),
+                email = email,
+                contrasena = password,
+                objetivo = selectedObjective,
+                genero = selectedGender,
+                edad = age!!,
+                altura = height,
+                unidadAltura = spHeightUnit.selectedItem.toString(),
+                pesoActual = weight,
+                unidadPeso = spWeightUnit.selectedItem.toString(),
+                pesoObjetivo = targetWeight,
+                imc = bmi,
+                nivelActividad = spActivityLevel.selectedItem.toString(),
+                condicionesMedicas = medicalConditionsStr,
+                preferenciasDieteticas = dietaryPreferencesStr,
+                alergias = allergiesStr,
+                comidasNoDeseadas = etDislikedFoods.text.toString().trim()
             )
 
-            val userData = hashMapOf(
-                "firstName" to etFirstName.text.toString().trim(),
-                "lastName" to etLastName.text.toString().trim(),
-                "email" to email,
-                "objective" to selectedObjective,
-                "gender" to selectedGender,
-                "age" to age,
-                "height" to height,
-                "heightUnit" to spHeightUnit.selectedItem.toString(),
-                "weight" to weight,
-                "weightUnit" to spWeightUnit.selectedItem.toString(),
-                "targetWeight" to targetWeight,
-                "bmi" to bmi,
-                "activityLevel" to spActivityLevel.selectedItem.toString(),
-                "medicalConditions" to getMedicalConditions(
-                    cbDiabetes, cbEatingDisorder, cbThyroid, cbRenal,
-                    cbDigestive, cbPregnancy, cbMedicalOther, etMedicalOther
-                ),
-                "dietaryPreferences" to getDietaryPreferences(
-                    cbVegetarian, cbVegan, cbPescetarian, cbKeto, cbPaleo, cbDietNone
-                ),
-                "allergies" to getAllergies(
-                    cbGluten, cbLactose, cbNuts, cbShellfish, cbAllergyOther, etAllergyOther
-                ),
-                "dislikedFoods" to etDislikedFoods.text.toString().trim()
-            )
+            // Ejecutar la inserción en la base de datos de forma asíncrona
+            scope.launch(Dispatchers.IO) {
 
-            Toast.makeText(this, "Registro completado exitosamente ✓", Toast.LENGTH_LONG).show()
+                // Opcional: Verificar si el email ya existe antes de registrar (usando el login)
+                val existingUser = usuarioDao.login(email, password)
 
-            // TODO: Aquí conectar con Firebase, API REST o BD local
-            // Ejemplo: saveUserToDatabase(userData)
+                if (existingUser != null) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@RegisterActivity, "ERROR: El correo ya está registrado. Intenta iniciar sesión.", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    usuarioDao.registrar(nuevoUsuario) // Insertar en Room
 
-            finish()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@RegisterActivity, "Registro completado exitosamente ✓", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+            }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
     }
 
     private fun calculateBMI(height: Double, heightUnit: String, weight: Double, weightUnit: String): Double {

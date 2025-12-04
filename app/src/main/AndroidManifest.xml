@@ -13,7 +13,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -34,8 +35,9 @@
             android:name=".HomeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
-            android:name=".data.HistoricalRecipesActivity"
+            android:name=".HistoricalRecipesActivity"
             android:screenOrientation="portrait" />
     </application>
 
