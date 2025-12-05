@@ -10,7 +10,11 @@
         android:supportsRtl="true"
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         android:theme="@style/Theme.ProjectMovil"  >
+=======
+        android:theme="@style/Theme.ProjectMovil">
+>>>>>>> Stashed changes
 =======
         android:theme="@style/Theme.ProjectMovil">
 >>>>>>> Stashed changes
@@ -50,6 +54,12 @@
         android:name=".ui.recipe.RecipeDetailActivity"
         android:screenOrientation="portrait"
         android:windowSoftInputMode="adjustResize" />
+
+        <!-- 🔹 AÑADIR ESTO -->
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- 🔹 AÑADIR ESTO -->
         <activity

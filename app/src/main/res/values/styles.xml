@@ -8,6 +8,7 @@
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <!-- Tu tema personal (NO afecta al de tu compañero) -->
     <style name="Theme.Leo" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">@color/black</item>
@@ -16,6 +17,8 @@
 
 </resources>
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     <!-- Tema general del equipo, hereda del tema global -->
@@ -43,6 +46,10 @@
 
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+</resources>
+>>>>>>> Stashed changes
+=======
 </resources>
 >>>>>>> Stashed changes
 =======
