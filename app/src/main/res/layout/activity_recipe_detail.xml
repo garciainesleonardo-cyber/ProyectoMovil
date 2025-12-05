@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@color/team_background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,6 +12,34 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Barra superior con botón de regreso -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="6dp"
+                android:src="@android:drawable/ic_media_previous"
+                app:tint="@color/team_primary" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Detalle de receta"
+                android:textColor="@color/team_text_on_light"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Card principal de la receta -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,13 +66,15 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- Título + categoría -->
                     <TextView
                         android:id="@+id/tv_detail_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nombre receta"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/team_text_on_light" />
 
                     <TextView
                         android:id="@+id/tv_detail_category"
@@ -51,8 +82,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="Categoría"
-                        android:textColor="@android:color/darker_gray" />
+                        android:textColor="@color/text_secondary" />
 
+                    <!-- Rating / tiempo / precio -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -71,30 +103,77 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="20 min" />
+                            android:text="20 min"
+                            android:textColor="@color/text_primary" />
 
                         <TextView
                             android:id="@+id/tv_detail_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:text="$0.00"
+                            android:text="$-"
                             android:textStyle="bold"
                             android:textColor="@android:color/holo_red_dark" />
                     </LinearLayout>
 
+                    <!-- Porciones y dificultad -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tv_detail_servings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Porciones: 1"
+                            android:textColor="@color/text_primary" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_difficulty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Dificultad: Fácil"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+
+                    <!-- Descripción -->
                     <TextView
                         android:id="@+id/tv_detail_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:text="Descripción larga de la receta..."
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary" />
+
+                    <!-- Ingredientes -->
+                    <TextView
+                        android:id="@+id/tv_detail_ingredients"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Ingredientes:"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary" />
+
+                    <!-- Pasos de preparación -->
+                    <TextView
+                        android:id="@+id/tv_detail_steps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Preparación:"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary" />
+
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Botones -->
+        <!-- Botones principales -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,7 +186,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Guardar" />
+                android:text="Guardar"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/team_primary" />
 
             <Button
                 android:id="@+id/btn_share_recipe"
@@ -115,14 +197,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Compartir" />
+                android:text="Compartir"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/team_primary_dark" />
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_add_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Añadir reseña" />
+            android:text="Añadir reseña"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/team_accent" />
 
     </LinearLayout>
 </ScrollView>

@@ -1,5 +1,6 @@
 package com.example.projectmovil.ui.home
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmovil.R
 import com.example.projectmovil.model.Recipe
+import com.example.projectmovil.ui.auth.LoginActivity
 import com.example.projectmovil.ui.history.HistoricalRecipesActivity
 import com.example.projectmovil.ui.recipe.RecipeDetailActivity
 
@@ -32,6 +34,7 @@ class HomeActivity : AppCompatActivity() {
         val iconFilter = findViewById<ImageView>(R.id.icon_filter)
         val iconCart = findViewById<ImageView>(R.id.icon_cart)
         val iconNotifications = findViewById<ImageView>(R.id.icon_notifications)
+        val iconProfile = findViewById<ImageView>(R.id.icon_profile)
 
         tvWelcome.text = "Bienvenido"
         tvUserName.text = userName.replaceFirstChar { it.uppercase() }
@@ -40,40 +43,11 @@ class HomeActivity : AppCompatActivity() {
         rvFeaturedRecipes.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        val rvCategories = findViewById<RecyclerView>(R.id.rv_categories)
-        rvCategories.layoutManager = GridLayoutManager(this, 4)
-
-        // 🔹 Aquí llenamos las recetas destacadas
+        // Recetas de prueba
         setupFeaturedRecipes()
 
-        // Click listeners para iconos
-        iconFilter.setOnClickListener {
-            Toast.makeText(this, "Filtros - Próximamente", Toast.LENGTH_SHORT).show()
-        }
-=======
-        // 🔹 Recetas de prueba
-        setupFeaturedRecipes()
-
-        // 🔹 Iconos
+        // Iconos
         iconFilter.setOnClickListener { showFilterDialog() }
->>>>>>> Stashed changes
-=======
-        // 🔹 Recetas de prueba
-        setupFeaturedRecipes()
-
-        // 🔹 Iconos
-        iconFilter.setOnClickListener { showFilterDialog() }
->>>>>>> Stashed changes
-=======
-        // 🔹 Recetas de prueba
-        setupFeaturedRecipes()
-
-        // 🔹 Iconos
-        iconFilter.setOnClickListener { showFilterDialog() }
->>>>>>> Stashed changes
 
         iconCart.setOnClickListener {
             Toast.makeText(this, "Carrito - Próximamente", Toast.LENGTH_SHORT).show()
@@ -87,65 +61,40 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(this, "Búsqueda - Próximamente", Toast.LENGTH_SHORT).show()
         }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        // Navegación a categorías
-=======
         iconProfile.setOnClickListener { showProfileMenu() }
 
->>>>>>> Stashed changes
-=======
-        iconProfile.setOnClickListener { showProfileMenu() }
-
->>>>>>> Stashed changes
-=======
-        iconProfile.setOnClickListener { showProfileMenu() }
-
->>>>>>> Stashed changes
+        // Categorías
         setupCategoryNavigation()
     }
 
+    // ================== Categorías ==================
+
     private fun setupCategoryNavigation() {
         val historicalRecipesCard = findViewById<CardView>(R.id.card_historical)
+        val botCard = findViewById<CardView>(R.id.card_bot)
+        val savedCard = findViewById<CardView>(R.id.card_saved)
+        val uploadCard = findViewById<CardView>(R.id.card_upload)
 
         historicalRecipesCard?.setOnClickListener {
             val intent = Intent(this, HistoricalRecipesActivity::class.java)
             startActivity(intent)
         }
 
-        val proteinsCard = findViewById<CardView>(R.id.card_proteins)
-        val dietCard = findViewById<CardView>(R.id.card_diet)
-        val botCard = findViewById<CardView>(R.id.card_bot)
-        val healthCard = findViewById<CardView>(R.id.card_health)
-
-        proteinsCard?.setOnClickListener {
-            Toast.makeText(this, "Recetas por Proteína - Próximamente", Toast.LENGTH_SHORT).show()
-        }
-
-        dietCard?.setOnClickListener {
-            Toast.makeText(this, "Recetas por Dieta - Próximamente", Toast.LENGTH_SHORT).show()
-        }
-
         botCard?.setOnClickListener {
             Toast.makeText(this, "Bot Chef - Próximamente", Toast.LENGTH_SHORT).show()
         }
 
-        healthCard?.setOnClickListener {
-            Toast.makeText(this, "Recetas Saludables - Próximamente", Toast.LENGTH_SHORT).show()
+        savedCard?.setOnClickListener {
+            Toast.makeText(this, "Recetas guardadas - Próximamente", Toast.LENGTH_SHORT).show()
+        }
+
+        uploadCard?.setOnClickListener {
+            Toast.makeText(this, "Subir receta - Próximamente", Toast.LENGTH_SHORT).show()
         }
     }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    // 🔹 NUEVA FUNCIÓN: crea recetas fake y conecta el adapter
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-    // 🔹 Menú de cuenta (solo cerrar sesión por ahora)
+    // ================== Menú de cuenta ==================
+
     private fun showProfileMenu() {
         val options = arrayOf("Cerrar sesión", "Cancelar")
 
@@ -170,14 +119,8 @@ class HomeActivity : AppCompatActivity() {
         finish()
     }
 
-    // 🔹 Recetas de prueba con ingredientes y costo
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+    // ================== Recetas de prueba ==================
+
     private fun setupFeaturedRecipes() {
         allRecipes = listOf(
             Recipe(
@@ -251,7 +194,8 @@ class HomeActivity : AppCompatActivity() {
         rvFeaturedRecipes.adapter = adapter
     }
 
-    // 🔹 Diálogo para aplicar filtros
+    // ================== Filtros ==================
+
     private fun showFilterDialog() {
         val dialogView = LayoutInflater.from(this)
             .inflate(R.layout.dialog_recipe_filters, null, false)
@@ -262,7 +206,7 @@ class HomeActivity : AppCompatActivity() {
         val rbInclude = dialogView.findViewById<RadioButton>(R.id.rb_include)
         val rbExclude = dialogView.findViewById<RadioButton>(R.id.rb_exclude)
 
-        // Opciones de tiempo
+        // Tiempo
         val timeOptions = arrayOf(
             "Cualquiera",
             "Hasta 15 min",
@@ -272,7 +216,7 @@ class HomeActivity : AppCompatActivity() {
         spMaxTime.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, timeOptions)
 
-        // Opciones de costo
+        // Costo
         val costOptions = arrayOf(
             "Todos",
             "Bajo",
@@ -308,7 +252,6 @@ class HomeActivity : AppCompatActivity() {
             .show()
     }
 
-    // 🔹 Lógica de filtros
     private fun applyFilters(
         maxTime: Int?,
         costFilter: String,
@@ -322,7 +265,7 @@ class HomeActivity : AppCompatActivity() {
             filtered = filtered.filter { it.timeMinutes <= limit }
         }
 
-        // Costo
+        // Costo (1 = Bajo, 2 = Medio, 3 = Alto)
         val costLevelFilter: Int? = when (costFilter) {
             "Bajo" -> 1
             "Medio" -> 2
@@ -334,7 +277,7 @@ class HomeActivity : AppCompatActivity() {
             filtered = filtered.filter { it.costLevel == level }
         }
 
-        // Ingredientes (incluir / excluir)
+        // Ingredientes
         if (ingredientText.isNotBlank()) {
             filtered = if (exclude) {
                 filtered.filter { recipe ->

@@ -21,7 +21,7 @@ class RecipeDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_detail)
 
-        // ⬅ La receta viene por Intent como Serializable
+        // Receta que viene desde el Home
         val recipe = intent.getSerializableExtra("recipe") as? Recipe
         if (recipe == null) {
             Toast.makeText(this, "Error al cargar receta", Toast.LENGTH_SHORT).show()
@@ -31,6 +31,7 @@ class RecipeDetailActivity : AppCompatActivity() {
 
         currentRating = recipe.rating
 
+        // --- Views principales ---
         val ivImage = findViewById<ImageView>(R.id.iv_detail_image)
         val tvTitle = findViewById<TextView>(R.id.tv_detail_title)
         val tvCategory = findViewById<TextView>(R.id.tv_detail_category)
@@ -39,14 +40,26 @@ class RecipeDetailActivity : AppCompatActivity() {
         val tvPrice = findViewById<TextView>(R.id.tv_detail_price)
         val tvDescription = findViewById<TextView>(R.id.tv_detail_description)
 
+        // --- Nuevas vistas para detalle completo ---
+        val tvIngredients = findViewById<TextView>(R.id.tv_detail_ingredients)
+        val tvSteps = findViewById<TextView>(R.id.tv_detail_steps)
+        val tvServings = findViewById<TextView>(R.id.tv_detail_servings)
+        val tvDifficulty = findViewById<TextView>(R.id.tv_detail_difficulty)
+
+        // Botones
         val btnSave = findViewById<Button>(R.id.btn_save_recipe)
         val btnShare = findViewById<Button>(R.id.btn_share_recipe)
         val btnAddReview = findViewById<Button>(R.id.btn_add_review)
 
-        // 🔹 Precio formateado con fallback "$-"
+        // Botón de regreso (icono arriba a la izquierda)
+        findViewById<ImageView?>(R.id.btn_back)?.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        // Precio formateado con fallback "$-"
         val formattedPrice = recipe.price?.takeIf { it.isNotBlank() } ?: "$-"
 
-        // Llenar datos
+        // --- Llenar datos básicos ---
         ivImage.setImageResource(recipe.imageResId)
         tvTitle.text = recipe.title
         tvCategory.text = recipe.category
@@ -55,19 +68,54 @@ class RecipeDetailActivity : AppCompatActivity() {
         tvPrice.text = formattedPrice
         tvDescription.text = recipe.description
 
+        // --- Ingredientes (en viñetas) ---
+        tvIngredients.text =
+            if (recipe.ingredients.isNotEmpty()) {
+                "Ingredientes:\n" + recipe.ingredients.joinToString(
+                    separator = "\n• ",
+                    prefix = "• "
+                )
+            } else {
+                "Ingredientes: no registrados."
+            }
+
+        // --- Pasos de preparación (1., 2., 3., ...) ---
+        tvSteps.text =
+            if (recipe.steps.isNotEmpty()) {
+                "Preparación:\n" + recipe.steps.mapIndexed { index, step ->
+                    "${index + 1}. $step"
+                }.joinToString("\n")
+            } else {
+                "Preparación: pasos no registrados."
+            }
+
+        // --- Porciones y dificultad ---
+        tvServings.text = "Porciones: ${recipe.servings}"
+        tvDifficulty.text = "Dificultad: ${recipe.difficulty}"
+
         // Guardar (placeholder)
         btnSave.setOnClickListener {
             Toast.makeText(this, "Receta guardada (placeholder)", Toast.LENGTH_SHORT).show()
         }
 
-        // Compartir
+        // Compartir con info más completa
         btnShare.setOnClickListener {
+            val ingredientsText =
+                if (recipe.ingredients.isNotEmpty())
+                    recipe.ingredients.joinToString(", ")
+                else
+                    "No registrados"
+
             val shareText = """
                 Mira esta receta: ${recipe.title}
                 
                 Categoría: ${recipe.category}
                 Tiempo: ${recipe.timeMinutes} min
                 Precio aprox: $formattedPrice
+                Porciones: ${recipe.servings}
+                Dificultad: ${recipe.difficulty}
+                
+                Ingredientes: $ingredientsText
                 
                 ${recipe.description}
             """.trimIndent()

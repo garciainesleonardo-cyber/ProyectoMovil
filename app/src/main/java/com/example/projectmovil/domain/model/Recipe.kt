@@ -17,7 +17,12 @@ data class Recipe(
     val rating: Float = 0f,
     val imageResId: Int,
 
-    // 🔹 NUEVOS CAMPOS PARA FILTROS
+    // 🔹 CAMPOS PARA FILTROS
     val ingredients: List<String> = emptyList(),
-    val costLevel: Int = 2          // por defecto medio
+    val costLevel: Int = 2,         // por defecto medio
+
+    // 🔹 NUEVOS CAMPOS PARA DETALLE
+    val steps: List<String> = emptyList(), // pasos de preparación
+    val servings: Int = 1,                 // número de porciones
+    val difficulty: String = "Fácil"       // dificultad (Fácil / Media / Difícil)
 ) : Serializable

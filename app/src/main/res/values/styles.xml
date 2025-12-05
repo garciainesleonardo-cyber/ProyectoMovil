@@ -1,57 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Estilos adicionales del proyecto -->
+    <!-- Estilo genérico de botón del proyecto -->
     <style name="Widget.ProjectMovil.Button" parent="Widget.Material3.Button">
         <item name="android:textAllCaps">false</item>
     </style>
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    <!-- Tu tema personal (NO afecta al de tu compañero) -->
+    <!-- Tema personal (por si alguien lo quiere usar en un Activity específico) -->
     <style name="Theme.Leo" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">@color/black</item>
         <item name="android:navigationBarColor">@color/black</item>
     </style>
 
-</resources>
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-    <!-- Tema general del equipo, hereda del tema global -->
+    <!-- Tema del equipo, encima del Theme.ProjectMovil que ya trae tu app -->
     <style name="Theme.ProjectMovil.Team" parent="Theme.ProjectMovil">
 
         <!-- Colores principales -->
         <item name="colorPrimary">@color/team_primary</item>
         <item name="colorOnPrimary">@color/team_text_primary</item>
 
-        <!-- Variantes modernas -->
+        <!-- Secundarios / acentos -->
         <item name="colorSecondary">@color/team_accent</item>
         <item name="colorOnSecondary">@color/team_text_on_light</item>
 
+        <!-- Terciario para variaciones -->
         <item name="colorTertiary">@color/team_primary_dark</item>
         <item name="colorOnTertiary">@color/team_text_primary</item>
 
-        <!-- Fondo -->
+        <!-- Fondo de ventanas -->
         <item name="android:windowBackground">@color/team_background</item>
 
-        <!-- Colores de texto por defecto -->
+        <!-- Textos por defecto -->
         <item name="android:textColorPrimary">@color/team_text_on_light</item>
         <item name="android:textColorSecondary">@color/team_text_secondary</item>
 
     </style>
 
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 </resources>
->>>>>>> Stashed changes
-=======
-</resources>
->>>>>>> Stashed changes
-=======
-</resources>
->>>>>>> Stashed changes

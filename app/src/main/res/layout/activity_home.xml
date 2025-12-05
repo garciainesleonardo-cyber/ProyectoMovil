@@ -20,7 +20,7 @@
             android:padding="20dp"
             android:elevation="2dp">
 
-            <!-- Top Row: Welcome + Notification Icon -->
+            <!-- Top Row: Welcome + Notification Icon + Profile Icon -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,16 +40,16 @@
                         android:layout_height="wrap_content"
                         android:text="Bienvenido"
                         android:textColor="#666666"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Alex Johnson"
+                        android:text="Usuario"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <!-- Notification Icon -->
@@ -58,11 +58,24 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:src="@android:drawable/ic_menu_send"
-                    android:tint="#E91E63"
+                    app:tint="#E91E63"
                     android:rotation="45"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="4dp"/>
+                    android:padding="4dp"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Profile Icon -->
+                <ImageView
+                    android:id="@+id/icon_profile"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_menu_myplaces"
+                    app:tint="#E91E63"
+                    android:background="@android:color/transparent"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true" />
             </LinearLayout>
 
             <!-- Search Bar -->
@@ -81,10 +94,10 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@android:drawable/ic_menu_sort_by_size"
-                    android:tint="#E91E63"
+                    app:tint="#E91E63"
                     android:padding="12dp"
                     android:clickable="true"
-                    android:focusable="true"/>
+                    android:focusable="true" />
 
                 <!-- Search Input -->
                 <EditText
@@ -98,15 +111,15 @@
                     android:background="@android:color/transparent"
                     android:padding="12dp"
                     android:inputType="text"
-                    android:imeOptions="actionSearch"/>
+                    android:imeOptions="actionSearch" />
 
                 <!-- Search Icon -->
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@android:drawable/ic_menu_search"
-                    android:tint="#E91E63"
-                    android:padding="12dp"/>
+                    app:tint="#E91E63"
+                    android:padding="12dp" />
 
                 <!-- Cart Icon -->
                 <ImageView
@@ -114,10 +127,10 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@android:drawable/ic_menu_agenda"
-                    android:tint="#E91E63"
+                    app:tint="#E91E63"
                     android:padding="12dp"
                     android:clickable="true"
-                    android:focusable="true"/>
+                    android:focusable="true" />
             </LinearLayout>
 
             <!-- Filter Tags Row -->
@@ -142,7 +155,7 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:src="@android:drawable/ic_dialog_map"
-                        android:tint="#666666"/>
+                        app:tint="#666666" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -150,7 +163,7 @@
                         android:text="Todas"
                         android:textColor="#333333"
                         android:textSize="12sp"
-                        android:layout_marginStart="4dp"/>
+                        android:layout_marginStart="4dp" />
                 </LinearLayout>
 
                 <!-- Time -->
@@ -167,7 +180,7 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:src="@android:drawable/ic_menu_recent_history"
-                        android:tint="#666666"/>
+                        app:tint="#666666" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -175,7 +188,7 @@
                         android:text="0 - 60 min"
                         android:textColor="#333333"
                         android:textSize="12sp"
-                        android:layout_marginStart="4dp"/>
+                        android:layout_marginStart="4dp" />
                 </LinearLayout>
 
                 <!-- Price -->
@@ -191,7 +204,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="💰"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -199,7 +212,7 @@
                         android:text="Todos"
                         android:textColor="#333333"
                         android:textSize="12sp"
-                        android:layout_marginStart="4dp"/>
+                        android:layout_marginStart="4dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -228,7 +241,7 @@
                     android:text="Recetas Destacadas"
                     android:textColor="#000000"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -238,212 +251,17 @@
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:clickable="true"
-                    android:focusable="true"/>
+                    android:focusable="true" />
             </LinearLayout>
 
-            <!-- Horizontal RecyclerView for Featured Recipes -->
+            <!-- SOLO RecyclerView, sin tarjetas fake -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_featured_recipes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:clipToPadding="false"
-                android:orientation="horizontal"/>
-
-            <!-- Featured Recipe Cards (Placeholder) -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!-- Recipe Card 1 -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="280dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="4dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <!-- Recipe Image -->
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="180dp"
-                                android:src="@android:drawable/ic_menu_gallery"
-                                android:scaleType="centerCrop"
-                                android:background="#FFE0B2"/>
-
-                            <!-- Recipe Info -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="16dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:gravity="center_vertical">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="Pasta Carbonara"
-                                        android:textColor="#000000"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="$8.99"
-                                        android:textColor="#E91E63"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold"/>
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_marginTop="8dp"
-                                    android:gravity="center_vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="4.5 ⭐"
-                                        android:textColor="#FFA000"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold"/>
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:layout_marginStart="16dp"
-                                        android:text="20 min 🕐"
-                                        android:textColor="#666666"
-                                        android:textSize="14sp"/>
-
-                                    <ImageView
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:src="@android:drawable/ic_input_add"
-                                        android:background="#E91E63"
-                                        android:tint="#FFFFFF"
-                                        android:padding="6dp"
-                                        android:clickable="true"
-                                        android:focusable="true"/>
-                                </LinearLayout>
-
-                            </LinearLayout>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Recipe Card 2 -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="280dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="4dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="180dp"
-                                android:src="@android:drawable/ic_menu_gallery"
-                                android:scaleType="centerCrop"
-                                android:background="#FFCDD2"/>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="16dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:gravity="center_vertical">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="Sushi Roll"
-                                        android:textColor="#000000"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="$12.99"
-                                        android:textColor="#E91E63"
-                                        android:textSize="18sp"
-                                        android:textStyle="bold"/>
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_marginTop="8dp"
-                                    android:gravity="center_vertical">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="4.7 ⭐"
-                                        android:textColor="#FFA000"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold"/>
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:layout_marginStart="16dp"
-                                        android:text="35 min 🕐"
-                                        android:textColor="#666666"
-                                        android:textSize="14sp"/>
-
-                                    <ImageView
-                                        android:layout_width="32dp"
-                                        android:layout_height="32dp"
-                                        android:src="@android:drawable/ic_input_add"
-                                        android:background="#E91E63"
-                                        android:tint="#FFFFFF"
-                                        android:padding="6dp"
-                                        android:clickable="true"
-                                        android:focusable="true"/>
-                                </LinearLayout>
-
-                            </LinearLayout>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-            </HorizontalScrollView>
+                android:orientation="horizontal" />
 
         </LinearLayout>
 
@@ -463,111 +281,16 @@
                 android:text="Categorías"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
-            <!-- Grid RecyclerView for Categories -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_categories"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"/>
-
-            <!-- Category Grid -->
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:columnCount="4"
-                android:rowCount="3"
+                android:columnCount="2"
                 android:alignmentMode="alignMargins">
 
-                <!-- Category 1: Por Proteína -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_proteins"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp"
-                        android:clickable="true"
-                        android:focusable="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="#E1BEE7"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="🍗"
-                                android:textSize="32sp"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Proteínas"
-                        android:textColor="#000000"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"/>
-                </LinearLayout>
-
-                <!-- Category 2: Por Dieta -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_diet"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp"
-                        android:clickable="true"
-                        android:focusable="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="#B2DFDB"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="🥗"
-                                android:textSize="32sp"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dieta"
-                        android:textColor="#000000"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"/>
-                </LinearLayout>
-
-                <!-- Category 3: Históricas -->
+                <!-- Históricas -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -578,10 +301,10 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_historical"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -595,7 +318,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="📜"
-                                android:textSize="32sp"/>
+                                android:textSize="36sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -607,10 +330,10 @@
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp"
-                        android:gravity="center"/>
+                        android:gravity="center" />
                 </LinearLayout>
 
-                <!-- Category 4: Bot Ayuda -->
+                <!-- Bot Chef -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -621,10 +344,10 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_bot"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -638,7 +361,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="🤖"
-                                android:textSize="32sp"/>
+                                android:textSize="36sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -650,10 +373,10 @@
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp"
-                        android:gravity="center"/>
+                        android:gravity="center" />
                 </LinearLayout>
 
-                <!-- Category 5: Salud -->
+                <!-- Guardadas -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -663,11 +386,11 @@
                     android:padding="8dp">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_health"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp"
+                        android:id="@+id/card_saved"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -680,23 +403,23 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="❤️"
-                                android:textSize="32sp"/>
+                                android:text="⭐"
+                                android:textSize="36sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Salud"
+                        android:text="Guardadas"
                         android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp"
-                        android:gravity="center"/>
+                        android:gravity="center" />
                 </LinearLayout>
 
-                <!-- Category 6: Desayunos -->
+                <!-- Subir receta -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -706,11 +429,11 @@
                     android:padding="8dp">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_breakfast"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp"
+                        android:id="@+id/card_upload"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -723,106 +446,20 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="🍳"
-                                android:textSize="32sp"/>
+                                android:text="⬆️"
+                                android:textSize="32sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Desayunos"
+                        android:text="Subir receta"
                         android:textColor="#000000"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:layout_marginTop="8dp"
-                        android:gravity="center"/>
-                </LinearLayout>
-
-                <!-- Category 7: Postres -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_dessert"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp"
-                        android:clickable="true"
-                        android:focusable="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="#F0F4C3"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="🍰"
-                                android:textSize="32sp"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Postres"
-                        android:textColor="#000000"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"/>
-                </LinearLayout>
-
-                <!-- Category 8: Bebidas -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="8dp">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_drinks"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp"
-                        android:clickable="true"
-                        android:focusable="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="#D1C4E9"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="🍹"
-                                android:textSize="32sp"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bebidas"
-                        android:textColor="#000000"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center"/>
+                        android:gravity="center" />
                 </LinearLayout>
 
             </GridLayout>
