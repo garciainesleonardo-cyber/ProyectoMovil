@@ -20,7 +20,7 @@
             android:padding="20dp"
             android:elevation="2dp">
 
-            <!-- Top Row: Welcome + Notification Icon -->
+            <!-- Top Row: Welcome + Notification Icon + Profile Icon -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +62,20 @@
                     android:rotation="45"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="4dp"/>
+                    android:padding="4dp"
+                    android:layout_marginEnd="8dp"/>
+
+                <!-- Profile Icon -->
+                <ImageView
+                    android:id="@+id/icon_profile"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@android:drawable/ic_menu_myplaces"
+                    android:tint="#E91E63"
+                    android:background="@android:color/transparent"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true" />
             </LinearLayout>
 
             <!-- Search Bar -->

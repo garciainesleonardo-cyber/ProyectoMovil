@@ -1,5 +1,6 @@
 package com.example.projectmovil.ui.home
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectmovil.R
 import com.example.projectmovil.model.Recipe
+import com.example.projectmovil.ui.auth.LoginActivity
 import com.example.projectmovil.ui.history.HistoricalRecipesActivity
 import com.example.projectmovil.ui.recipe.RecipeDetailActivity
 
@@ -33,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
         val iconFilter = findViewById<ImageView>(R.id.icon_filter)
         val iconCart = findViewById<ImageView>(R.id.icon_cart)
         val iconNotifications = findViewById<ImageView>(R.id.icon_notifications)
+        val iconProfile = findViewById<ImageView>(R.id.icon_profile)
 
         tvWelcome.text = "Bienvenido"
         tvUserName.text = userName.replaceFirstChar { it.uppercase() }
@@ -44,10 +47,10 @@ class HomeActivity : AppCompatActivity() {
         val rvCategories = findViewById<RecyclerView>(R.id.rv_categories)
         rvCategories.layoutManager = GridLayoutManager(this, 4)
 
-        // 🔹 Aquí llenamos las recetas destacadas
+        // 🔹 Recetas destacadas
         setupFeaturedRecipes()
 
-        // Click listeners para iconos
+        // 🔹 Click listeners para iconos
         iconFilter.setOnClickListener {
             Toast.makeText(this, "Filtros - Próximamente", Toast.LENGTH_SHORT).show()
         }
@@ -62,6 +65,11 @@ class HomeActivity : AppCompatActivity() {
 
         searchBar.setOnClickListener {
             Toast.makeText(this, "Búsqueda - Próximamente", Toast.LENGTH_SHORT).show()
+        }
+
+        // 🔹 Menú de perfil (incluye cerrar sesión)
+        iconProfile.setOnClickListener {
+            showProfileMenu()
         }
 
         // Navegación a categorías
@@ -98,7 +106,37 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // 🔹 NUEVA FUNCIÓN: crea recetas fake y conecta el adapter
+    // 🔹 Menú sencillo de perfil con opción de cerrar sesión
+    private fun showProfileMenu() {
+        val options = arrayOf("Cerrar sesión", "Cancelar")
+
+        AlertDialog.Builder(this)
+            .setTitle("Cuenta")
+            .setItems(options) { dialog, which ->
+                when (which) {
+                    0 -> { // Cerrar sesión
+                        logout()
+                    }
+                    1 -> { // Cancelar
+                        dialog.dismiss()
+                    }
+                }
+            }
+            .show()
+    }
+
+    private fun logout() {
+        Toast.makeText(this, "Cerrando sesión...", Toast.LENGTH_SHORT).show()
+
+        val intent = Intent(this, LoginActivity::class.java).apply {
+            // Limpia el back stack para que no pueda volver con el botón atrás
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+        finish()
+    }
+
+    // 🔹 Crea recetas fake y conecta el adapter
     private fun setupFeaturedRecipes() {
         val recipes = listOf(
             Recipe(

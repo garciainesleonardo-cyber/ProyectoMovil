@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProjectMovil"  >
+        android:theme="@style/Theme.ProjectMovil"
+        >
 
         <activity
             android:name=".ui.main.MainActivity"
@@ -37,11 +38,12 @@
 
         <activity
             android:name=".ui.history.HistoricalRecipesActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.recipe.RecipeDetailActivity"
             android:screenOrientation="portrait"
-            /> <activity
-        android:name=".ui.recipe.RecipeDetailActivity"
-        android:screenOrientation="portrait"
-        android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize" />
 
     </application>
 
