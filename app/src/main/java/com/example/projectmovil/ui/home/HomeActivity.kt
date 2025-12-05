@@ -11,10 +11,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projectmovil.ui.history.HistoricalRecipesActivity
 import com.example.projectmovil.R
+import com.example.projectmovil.model.Recipe
+import com.example.projectmovil.ui.history.HistoricalRecipesActivity
+import com.example.projectmovil.ui.recipe.RecipeDetailActivity
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var rvFeaturedRecipes: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,15 +37,15 @@ class HomeActivity : AppCompatActivity() {
         tvWelcome.text = "Bienvenido"
         tvUserName.text = userName.replaceFirstChar { it.uppercase() }
 
-        val rvFeaturedRecipes = findViewById<RecyclerView>(R.id.rv_featured_recipes)
+        rvFeaturedRecipes = findViewById(R.id.rv_featured_recipes)
         rvFeaturedRecipes.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         val rvCategories = findViewById<RecyclerView>(R.id.rv_categories)
         rvCategories.layoutManager = GridLayoutManager(this, 4)
 
-        // TODO: Aquí conectarás los adapters cuando tengas los datos
-
+        // 🔹 Aquí llenamos las recetas destacadas
+        setupFeaturedRecipes()
 
         // Click listeners para iconos
         iconFilter.setOnClickListener {
@@ -65,9 +69,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupCategoryNavigation() {
-        // Por ahora, solo implementamos la navegación a Recetas Históricas
-        // Los demás se implementarán después
-
         val historicalRecipesCard = findViewById<CardView>(R.id.card_historical)
 
         historicalRecipesCard?.setOnClickListener {
@@ -75,7 +76,6 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Placeholder para las demás categorías
         val proteinsCard = findViewById<CardView>(R.id.card_proteins)
         val dietCard = findViewById<CardView>(R.id.card_diet)
         val botCard = findViewById<CardView>(R.id.card_bot)
@@ -96,5 +96,49 @@ class HomeActivity : AppCompatActivity() {
         healthCard?.setOnClickListener {
             Toast.makeText(this, "Recetas Saludables - Próximamente", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // 🔹 NUEVA FUNCIÓN: crea recetas fake y conecta el adapter
+    private fun setupFeaturedRecipes() {
+        val recipes = listOf(
+            Recipe(
+                id = 1,
+                title = "Ensalada Mediterránea",
+                category = "Saludable",
+                description = "Una ensalada fresca con jitomate, pepino, aceitunas, queso feta y aderezo de aceite de oliva.",
+                timeMinutes = 15,
+                price = "$80 MXN aprox.",
+                rating = 4.8f,
+                imageResId = R.mipmap.ic_launcher
+            ),
+            Recipe(
+                id = 2,
+                title = "Pollo a la Plancha con Verduras",
+                category = "Proteínas",
+                description = "Pechuga de pollo marinada con especias, acompañada de verduras salteadas.",
+                timeMinutes = 25,
+                price = "$110 MXN aprox.",
+                rating = 4.5f,
+                imageResId = R.mipmap.ic_launcher
+            ),
+            Recipe(
+                id = 3,
+                title = "Tostadas de Atún Fit",
+                category = "Rápido",
+                description = "Tostadas horneadas con mezcla de atún, verduras y un toque de limón.",
+                timeMinutes = 10,
+                price = "$60 MXN aprox.",
+                rating = 4.2f,
+                imageResId = R.mipmap.ic_launcher
+            )
+        )
+
+        val adapter = FeaturedRecipeAdapter(recipes) { recipe ->
+            val intent = Intent(this, RecipeDetailActivity::class.java)
+            intent.putExtra("recipe", recipe)
+            startActivity(intent)
+        }
+
+        rvFeaturedRecipes.adapter = adapter
     }
 }
