@@ -37,7 +37,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".HistoricalRecipesActivity"
+            android:name=".data.HistoricalRecipesActivity"
             android:screenOrientation="portrait" />
     </application>
 

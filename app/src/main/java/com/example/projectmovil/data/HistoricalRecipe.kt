@@ -1,5 +1,6 @@
 package com.example.projectmovil.data
 
+<<<<<<<< Updated upstream:app/src/main/java/com/example/projectmovil/data/HistoricalRecipe.kt
 // La clase de datos que define la estructura de una receta histórica
 data class HistoricalRecipe(
     val name: String,
@@ -10,6 +11,14 @@ data class HistoricalRecipe(
     val ingredients: List<String>,
     val preparation: List<String>
 )
+========
+import android.app.AlertDialog
+import android.os.Bundle
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.example.projectmovil.R
+>>>>>>>> Stashed changes:app/src/main/java/com/example/projectmovil/data/HistoricalRecipesActivity.kt
 
 // Objeto Singleton que proporciona la lista de recetas
 object HistoricalRecipeProvider {
@@ -128,4 +137,103 @@ object HistoricalRecipeProvider {
             )
         )
     )
+<<<<<<<< Updated upstream:app/src/main/java/com/example/projectmovil/data/HistoricalRecipe.kt
 }
+========
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_historical_recipes)
+
+        val btnBack = findViewById<ImageView>(R.id.btn_back)
+        btnBack.setOnClickListener {
+            finish()
+        }
+
+        val recipesContainer = findViewById<LinearLayout>(R.id.recipes_container)
+
+        historicalRecipes.forEach { recipe ->
+            val recipeCard = layoutInflater.inflate(R.layout.item_historical_recipe, recipesContainer, false)
+            setupRecipeCard(recipeCard, recipe)
+            recipesContainer.addView(recipeCard)
+        }
+    }
+
+    private fun setupRecipeCard(cardView: View, recipe: HistoricalRecipe) {
+        val tvTitle = cardView.findViewById<TextView>(R.id.tv_recipe_title)
+        val tvDescription = cardView.findViewById<TextView>(R.id.tv_recipe_description)
+        val tvRating = cardView.findViewById<TextView>(R.id.tv_recipe_rating)
+        val tvCalories = cardView.findViewById<TextView>(R.id.tv_recipe_calories)
+        val tvHistory = cardView.findViewById<TextView>(R.id.tv_recipe_history)
+        val tvIngredients = cardView.findViewById<TextView>(R.id.tv_recipe_ingredients)
+        val tvPreparation = cardView.findViewById<TextView>(R.id.tv_recipe_preparation)
+        val btnShowMore = cardView.findViewById<Button>(R.id.btn_show_more)
+        val btnAddReview = cardView.findViewById<Button>(R.id.btn_add_review)
+        val expandedContent = cardView.findViewById<LinearLayout>(R.id.expanded_content)
+
+        tvTitle.text = recipe.name
+        tvDescription.text = recipe.shortDescription
+        tvRating.text = recipe.rating
+        tvCalories.text = recipe.calories
+        tvHistory.text = recipe.history
+
+        val ingredientsText = recipe.ingredients.joinToString("\n") { "• $it" }
+        tvIngredients.text = ingredientsText
+
+        val preparationText = recipe.preparation.mapIndexed { index, step ->
+            "${index + 1}. $step"
+        }.joinToString("\n\n")
+        tvPreparation.text = preparationText
+
+        var isExpanded = false
+        expandedContent.visibility = View.GONE
+
+        btnShowMore.setOnClickListener {
+            isExpanded = !isExpanded
+            if (isExpanded) {
+                expandedContent.visibility = View.VISIBLE
+                btnShowMore.text = "Mostrar menos ▲"
+            } else {
+                expandedContent.visibility = View.GONE
+                btnShowMore.text = "Mostrar más ▼"
+            }
+        }
+
+        btnAddReview.setOnClickListener {
+            showReviewDialog(recipe.name)
+        }
+    }
+
+    private fun showReviewDialog(recipeName: String) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_add_review, null)
+        val etReview = dialogView.findViewById<EditText>(R.id.et_review)
+        val ratingBar = dialogView.findViewById<RatingBar>(R.id.rating_bar)
+
+        AlertDialog.Builder(this)
+            .setTitle("Reseña: $recipeName")
+            .setView(dialogView)
+            .setPositiveButton("Enviar") { _, _ ->
+                val review = etReview.text.toString()
+                val rating = ratingBar.rating
+                Toast.makeText(
+                    this,
+                    "Reseña enviada: $rating estrellas",
+                    Toast.LENGTH_SHORT
+                ).show()
+                // TODO: Guardar reseña en base de datos
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+}
+
+data class HistoricalRecipe(
+    val name: String,
+    val shortDescription: String,
+    val rating: String,
+    val calories: String,
+    val history: String,
+    val ingredients: List<String>,
+    val preparation: List<String>
+)
+>>>>>>>> Stashed changes:app/src/main/java/com/example/projectmovil/data/HistoricalRecipesActivity.kt
