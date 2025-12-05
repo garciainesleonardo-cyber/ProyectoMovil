@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ChipStyle" parent="android:Widget">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingStart">12dp</item>
-        <item name="android:paddingEnd">12dp</item>
-        <item name="android:paddingTop">6dp</item>
-        <item name="android:paddingBottom">6dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/text_primary</item>
-        <item name="android:background">@drawable/chip_background</item> <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
+
+    <!-- Estilos adicionales del proyecto -->
+    <style name="Widget.ProjectMovil.Button" parent="Widget.Material3.Button">
+        <item name="android:textAllCaps">false</item>
     </style>
+
+    <!-- Tu tema personal (NO afecta al de tu compañero) -->
+    <style name="Theme.Leo" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
+
 </resources>

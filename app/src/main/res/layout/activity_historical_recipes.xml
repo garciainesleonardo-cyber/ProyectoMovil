@@ -40,6 +40,7 @@
             android:textColor="#555"
             android:layout_marginBottom="16dp"/>
 
+        <!-- TARJETA DE FILTROS BONITA -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,44 +51,72 @@
             android:layout_marginBottom="20dp">
 
             <!-- Dropdown Tipo -->
-            <AutoCompleteTextView
-                android:id="@+id/filter_type_dropdown"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tipo de receta"
-                android:padding="12dp"
-                android:background="@drawable/bg_input"
-                android:layout_marginBottom="12dp" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginBottom="12dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/filter_type_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Dropdown Rating -->
-            <AutoCompleteTextView
-                android:id="@+id/filter_rating_dropdown"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Rating"
-                android:padding="12dp"
-                android:background="@drawable/bg_input"
-                android:layout_marginBottom="12dp" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginBottom="12dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/filter_rating_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Dropdown Ingrediente -->
-            <AutoCompleteTextView
-                android:id="@+id/filter_ingredient_dropdown"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Ingrediente"
-                android:padding="12dp"
-                android:background="@drawable/bg_input"
-                android:layout_marginBottom="12dp" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginBottom="12dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/filter_ingredient_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Dropdown Calorías -->
-            <AutoCompleteTextView
-                android:id="@+id/filter_calories_dropdown"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Calorías"
-                android:padding="12dp"
-                android:background="@drawable/bg_input"
-                android:layout_marginBottom="16dp" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginBottom="16dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/filter_calories_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Botón limpiar filtros -->
             <Button

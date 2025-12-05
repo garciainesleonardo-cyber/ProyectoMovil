@@ -12,4 +12,5 @@
     <string name="filter_type">Tipo de Plato</string>
     <string name="filter_rating">Calificación</string>
     <string name="filter_calories">Calorías</string>
+
 </resources>
