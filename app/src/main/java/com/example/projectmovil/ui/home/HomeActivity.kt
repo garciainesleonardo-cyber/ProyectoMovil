@@ -41,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         val rvCategories = findViewById<RecyclerView>(R.id.rv_categories)
         rvCategories.layoutManager = GridLayoutManager(this, 4)
 
@@ -51,6 +52,13 @@ class HomeActivity : AppCompatActivity() {
         iconFilter.setOnClickListener {
             Toast.makeText(this, "Filtros - Próximamente", Toast.LENGTH_SHORT).show()
         }
+=======
+        // 🔹 Recetas de prueba
+        setupFeaturedRecipes()
+
+        // 🔹 Iconos
+        iconFilter.setOnClickListener { showFilterDialog() }
+>>>>>>> Stashed changes
 =======
         // 🔹 Recetas de prueba
         setupFeaturedRecipes()
@@ -72,7 +80,12 @@ class HomeActivity : AppCompatActivity() {
         }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         // Navegación a categorías
+=======
+        iconProfile.setOnClickListener { showProfileMenu() }
+
+>>>>>>> Stashed changes
 =======
         iconProfile.setOnClickListener { showProfileMenu() }
 
@@ -111,8 +124,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     // 🔹 NUEVA FUNCIÓN: crea recetas fake y conecta el adapter
 =======
+=======
+>>>>>>> Stashed changes
     // 🔹 Menú de cuenta (solo cerrar sesión por ahora)
     private fun showProfileMenu() {
         val options = arrayOf("Cerrar sesión", "Cancelar")
@@ -139,6 +155,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // 🔹 Recetas de prueba con ingredientes y costo
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     private fun setupFeaturedRecipes() {
         allRecipes = listOf(
