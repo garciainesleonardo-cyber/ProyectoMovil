@@ -1,3 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ProjectMovil</string>
+
+    <string name="header_emoji">📜</string>
+    <string name="header_title">Recetas Históricas</string>
+    <string name="header_subtitle">Sabores del pasado, ahora contigo.</string>
+    <string name="cd_back_button">Botón de regreso</string>
+
+    <string name="filter_by_label">Filtrar por:</string>
+    <string name="filter_ingredients">Ingredientes</string>
+    <string name="filter_type">Tipo de Plato</string>
+    <string name="filter_rating">Calificación</string>
+    <string name="filter_calories">Calorías</string>
 </resources>

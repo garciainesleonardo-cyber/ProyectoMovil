@@ -3,47 +3,160 @@ package com.example.projectmovil.ui.history
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RatingBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projectmovil.R
 import com.example.projectmovil.data.HistoricalRecipe
 import com.example.projectmovil.data.HistoricalRecipeProvider
+import com.example.projectmovil.data.FilterOptions
 
 class HistoricalRecipesActivity : AppCompatActivity() {
 
-    // Lista de recetas obtenida del proveedor (Datos estáticos)
-    private val historicalRecipes = HistoricalRecipeProvider.historicalRecipes
+    // Lista inmutable original (la fuente de verdad para filtrar)
+    private val originalRecipes = HistoricalRecipeProvider.historicalRecipes
+
+    // Lista mutable que se mostrará y se actualizará con los filtros
+    private var currentRecipes: List<HistoricalRecipe> = originalRecipes
+
+    // Estado actual de las selecciones de filtro
+    private data class FilterState(
+        var selectedType: String? = null,
+        var selectedRating: String? = null,
+        var selectedIngredient: String? = null,
+        var selectedCalories: String? = null
+    )
+
+    private val filterState = FilterState()
+    private lateinit var recipesContainer: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // ⚠️ Asegúrate de que este layout exista
         setContentView(R.layout.activity_historical_recipes)
 
+        recipesContainer = findViewById(R.id.recipes_container)
         val btnBack = findViewById<ImageView>(R.id.btn_back)
         btnBack.setOnClickListener {
-            // Regresa a la actividad anterior
             finish()
         }
 
-        val recipesContainer = findViewById<LinearLayout>(R.id.recipes_container)
+        // --- 1. CONFIGURACIÓN INICIAL DE FILTROS Y UI ---
+        setupFilterDropdowns()
 
-        // Lógica para inflar y mostrar cada tarjeta de receta
-        historicalRecipes.forEach { recipe ->
-            // ⚠️ Asegúrate de que este layout exista
-            val recipeCard = layoutInflater.inflate(R.layout.item_historical_recipe, recipesContainer, false)
-            setupRecipeCard(recipeCard, recipe)
-            recipesContainer.addView(recipeCard)
+        // Mostrar todas las recetas al inicio
+        updateRecipesUI(originalRecipes)
+    }
+
+    /**
+     * Inicializa los AutoCompleteTextView (Desplegables) con las opciones únicas del Provider
+     * y configura los listeners de selección.
+     */
+    private fun setupFilterDropdowns() {
+        val filterOptions = HistoricalRecipeProvider.getFilterOptions()
+
+        // Referencias a los Desplegables del XML
+        val dropdownType = findViewById<AutoCompleteTextView>(R.id.filter_type_dropdown)
+        val dropdownRating = findViewById<AutoCompleteTextView>(R.id.filter_rating_dropdown)
+        val dropdownIngredient = findViewById<AutoCompleteTextView>(R.id.filter_ingredient_dropdown)
+        val dropdownCalories = findViewById<AutoCompleteTextView>(R.id.filter_calories_dropdown)
+
+        // Función auxiliar para crear adaptadores y configurar listeners
+        fun setupDropdown(dropdown: AutoCompleteTextView, options: List<String>, updateState: (String?) -> Unit) {
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                options
+            )
+            dropdown.setAdapter(adapter)
+
+            // Listener para aplicar filtro al seleccionar
+            dropdown.setOnItemClickListener { parent, _, position, _ ->
+                val selectedValue = parent.getItemAtPosition(position).toString()
+                updateState(selectedValue) // Actualiza la propiedad del FilterState
+                applyFilters()            // Ejecuta el filtrado
+            }
+
+            // Listener para detectar cuando se borra la selección (si el usuario borra el texto)
+            dropdown.setOnFocusChangeListener { _, hasFocus ->
+                if (!hasFocus && dropdown.text.isNullOrEmpty()) {
+                    updateState(null) // Borra la propiedad del FilterState
+                    applyFilters()
+                }
+            }
+        }
+
+        // Aplicar la configuración a cada filtro
+        setupDropdown(dropdownType, filterOptions.types) { filterState.selectedType = it }
+        setupDropdown(dropdownRating, filterOptions.ratings) { filterState.selectedRating = it }
+        setupDropdown(dropdownIngredient, filterOptions.ingredients) { filterState.selectedIngredient = it }
+        setupDropdown(dropdownCalories, filterOptions.calories) { filterState.selectedCalories = it }
+    }
+
+    /**
+     * Filtra la lista original de recetas basándose en el estado actual de los desplegables.
+     */
+    private fun applyFilters() {
+        var filteredList: List<HistoricalRecipe> = originalRecipes
+
+        // 1. Filtrar por Tipo
+        filterState.selectedType?.let { type ->
+            filteredList = filteredList.filter { it.type == type }
+        }
+
+        // 2. Filtrar por Calificación
+        filterState.selectedRating?.let { rating ->
+            filteredList = filteredList.filter { it.rating == rating }
+        }
+
+        // 3. Filtrar por Ingrediente
+        filterState.selectedIngredient?.let { ingredient ->
+            // Busca si alguno de los ingredientes de la receta contiene el ingrediente seleccionado
+            filteredList = filteredList.filter { recipe ->
+                // NOTA: Esta lógica asume que el ingrediente en la lista de la receta es fácil de buscar.
+                // Si la limpieza en el Provider no fue perfecta, esta búsqueda puede fallar.
+                recipe.ingredients.any { rawIngredient ->
+                    rawIngredient.contains(ingredient, ignoreCase = true)
+                }
+            }
+        }
+
+        // 4. Filtrar por Calorías
+        filterState.selectedCalories?.let { calories ->
+            filteredList = filteredList.filter { it.calories == calories }
+        }
+
+        // Actualizar la UI con los resultados
+        currentRecipes = filteredList
+        updateRecipesUI(currentRecipes)
+    }
+
+    /**
+     * Borra el contenido actual del contenedor de recetas y lo repinta con la nueva lista.
+     */
+    private fun updateRecipesUI(recipes: List<HistoricalRecipe>) {
+        recipesContainer.removeAllViews() // Borrar todas las vistas de recetas anteriores
+
+        if (recipes.isEmpty()) {
+            // Muestra un mensaje si no hay resultados
+            val noResults = TextView(this).apply {
+                text = "No se encontraron recetas con los filtros seleccionados."
+                setPadding(32, 32, 32, 32)
+                gravity = android.view.Gravity.CENTER
+                textSize = 18f
+                setTextColor(resources.getColor(R.color.text_secondary, theme))
+            }
+            recipesContainer.addView(noResults)
+        } else {
+            // Infla y añade las nuevas tarjetas de recetas
+            recipes.forEach { recipe ->
+                val recipeCard = layoutInflater.inflate(R.layout.item_historical_recipe, recipesContainer, false)
+                setupRecipeCard(recipeCard, recipe)
+                recipesContainer.addView(recipeCard)
+            }
         }
     }
 
     /**
-     * Configura los datos y la interacción de una tarjeta de receta individual.
+     * Configura los datos y la interacción de una tarjeta de receta individual (MANTENIDA IGUAL).
      */
     private fun setupRecipeCard(cardView: View, recipe: HistoricalRecipe) {
         // --- 1. Encontrar Vistas ---
@@ -100,7 +213,7 @@ class HistoricalRecipesActivity : AppCompatActivity() {
      * Muestra el diálogo para añadir una reseña y maneja el Toast de confirmación.
      */
     private fun showReviewDialog(recipeName: String) {
-        // ⚠️ Asegúrate de que este layout exista
+        // Asegúrate de que este layout exista: dialog_add_review.xml
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_review, null)
         val etReview = dialogView.findViewById<EditText>(R.id.et_review)
         val ratingBar = dialogView.findViewById<RatingBar>(R.id.rating_bar)

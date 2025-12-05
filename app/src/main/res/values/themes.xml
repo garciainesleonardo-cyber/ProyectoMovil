@@ -1,7 +1,8 @@
 <resources>
-    <!-- Tema principal, usando AppCompat REAL -->
-    <style name="Theme.ProjectMovil" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.ProjectMovil" parent="Theme.MaterialComponents.Light.NoActionBar">
+
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
+
     </style>
 </resources>

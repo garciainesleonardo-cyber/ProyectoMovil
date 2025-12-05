@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_extra_small">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+
+    <dimen name="margin_extra_small">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+
+    <dimen name="icon_size">40dp</dimen>
+    <dimen name="header_emoji_size">50sp</dimen>
+    <dimen name="header_title_text_size">26sp</dimen>
+    <dimen name="subtitle_text_size">13sp</dimen>
+    <dimen name="filter_label_text_size">16sp</dimen>
+
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_elevation_large">8dp</dimen>
+    <dimen name="card_corner_radius_large">16dp</dimen>
+
+    <dimen name="chip_corner_radius">20dp</dimen>
+    <dimen name="chip_padding_vertical">10dp</dimen>
+    <dimen name="chip_padding_horizontal">10dp</dimen>
+</resources>
