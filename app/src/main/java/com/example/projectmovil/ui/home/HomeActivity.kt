@@ -1,4 +1,4 @@
-package com.example.projectmovil
+package com.example.projectmovil.ui.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.example.projectmovil.ui.history.HistoricalRecipesActivity
+import com.example.projectmovil.R
 
 class HomeActivity : AppCompatActivity() {
 
@@ -32,7 +34,8 @@ class HomeActivity : AppCompatActivity() {
         tvUserName.text = userName.replaceFirstChar { it.uppercase() }
 
         val rvFeaturedRecipes = findViewById<RecyclerView>(R.id.rv_featured_recipes)
-        rvFeaturedRecipes.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvFeaturedRecipes.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         val rvCategories = findViewById<RecyclerView>(R.id.rv_categories)
         rvCategories.layoutManager = GridLayoutManager(this, 4)
@@ -65,7 +68,7 @@ class HomeActivity : AppCompatActivity() {
         // Por ahora, solo implementamos la navegación a Recetas Históricas
         // Los demás se implementarán después
 
-        val historicalRecipesCard = findViewById<androidx.cardview.widget.CardView>(R.id.card_historical)
+        val historicalRecipesCard = findViewById<CardView>(R.id.card_historical)
 
         historicalRecipesCard?.setOnClickListener {
             val intent = Intent(this, HistoricalRecipesActivity::class.java)
@@ -73,10 +76,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // Placeholder para las demás categorías
-        val proteinsCard = findViewById<androidx.cardview.widget.CardView>(R.id.card_proteins)
-        val dietCard = findViewById<androidx.cardview.widget.CardView>(R.id.card_diet)
-        val botCard = findViewById<androidx.cardview.widget.CardView>(R.id.card_bot)
-        val healthCard = findViewById<androidx.cardview.widget.CardView>(R.id.card_health)
+        val proteinsCard = findViewById<CardView>(R.id.card_proteins)
+        val dietCard = findViewById<CardView>(R.id.card_diet)
+        val botCard = findViewById<CardView>(R.id.card_bot)
+        val healthCard = findViewById<CardView>(R.id.card_health)
 
         proteinsCard?.setOnClickListener {
             Toast.makeText(this, "Recetas por Proteína - Próximamente", Toast.LENGTH_SHORT).show()

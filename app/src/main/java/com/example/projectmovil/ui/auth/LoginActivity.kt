@@ -1,4 +1,4 @@
-package com.example.projectmovil
+package com.example.projectmovil.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,9 +7,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.projectmovil.data.database.AppDatabase
+import com.example.projectmovil.ui.main.MainActivity
+import com.example.projectmovil.R
 import com.example.projectmovil.data.dao.UsuarioDao
-import kotlinx.coroutines.*
+import com.example.projectmovil.data.database.AppDatabase
+import com.example.projectmovil.ui.home.HomeActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
 
         // 1. Inicialización de Room
         try {
-            usuarioDao = AppDatabase.getDatabase(applicationContext).usuarioDao()
+            usuarioDao = AppDatabase.Companion.getDatabase(applicationContext).usuarioDao()
         } catch (e: Exception) {
             Log.e("LoginActivity", "Error al inicializar Room: ${e.message}")
             Toast.makeText(this, "ERROR: Problema con la Base de Datos. (Versión/Sintaxis)", Toast.LENGTH_LONG).show()
@@ -64,19 +72,31 @@ class LoginActivity : AppCompatActivity() {
 
                     withContext(Dispatchers.Main) {
                         if (usuarioEncontrado != null) {
-                            Toast.makeText(this@LoginActivity, "¡Bienvenido, ${usuarioEncontrado.nombre}!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "¡Bienvenido, ${usuarioEncontrado.nombre}!",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
                             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                             startActivity(intent)
                             finish()
                         } else {
-                            Toast.makeText(this@LoginActivity, "Credenciales incorrectas.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Credenciales incorrectas.",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
                 } catch (e: Exception) {
                     Log.e("LoginActivity", "Error en la consulta de Login: ${e.message}")
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@LoginActivity, "ERROR: Falló la comunicación con la BD.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "ERROR: Falló la comunicación con la BD.",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }
