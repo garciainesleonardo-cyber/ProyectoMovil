@@ -1,10 +1,12 @@
-// Ruta: com.example.projectmovil.MainActivity.kt
-package com.example.projectmovil
+package com.example.projectmovil.ui.main
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.projectmovil.R
+import com.example.projectmovil.ui.auth.RegisterActivity
+import com.example.projectmovil.ui.auth.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 

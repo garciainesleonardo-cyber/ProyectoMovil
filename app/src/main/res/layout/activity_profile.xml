@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/team_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Avatar -->
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_person"
+            android:tint="@color/team_primary_dark"
+            android:layout_gravity="center_horizontal"
+            android:padding="8dp" />
+
+        <!-- Username -->
+        <TextView
+            android:id="@+id/tv_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Miguel Aguilar"
+            android:textColor="@color/team_text_on_light"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal" />
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/tv_profile_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="miguel@example.com"
+            android:textColor="@color/team_text_secondary"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:layout_gravity="center_horizontal" />
+
+        <!-- Edit Profile -->
+        <TextView
+            android:id="@+id/btn_edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editar perfil ✏️"
+            android:textColor="@color/team_accent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal" />
+
+        <!-- SECTION TITLE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Objetivo actual"
+            android:textColor="@color/team_accent"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="32dp" />
+
+        <!-- Card Objetivo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/team_card_dark"
+            android:padding="16dp"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/tv_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bajar de peso"
+                android:textColor="@color/team_text_primary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_activity_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nivel de actividad: Moderado"
+                android:textColor="@color/team_text_secondary"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
+        <!-- SETTINGS CARD -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/team_card_dark"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:id="@+id/btn_notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔔 Notificaciones"
+                android:textColor="@color/team_text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="12dp" />
+
+            <TextView
+                android:id="@+id/btn_privacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔒 Privacidad"
+                android:textColor="@color/team_text_primary"
+                android:textSize="16sp"
+                android:paddingBottom="12dp" />
+
+            <TextView
+                android:id="@+id/btn_preferences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⚙️ Preferencias"
+                android:textColor="@color/team_text_primary"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- ACCOUNT SECTION -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/team_card_dark"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:id="@+id/btn_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🚪 Cerrar sesión"
+                android:textColor="@color/team_primary"
+                android:textSize="16sp"
+                android:paddingTop="6dp" />
+
+            <TextView
+                android:id="@+id/btn_delete_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🗑️ Eliminar cuenta"
+                android:textColor="@color/team_accent"
+                android:textSize="16sp"
+                android:paddingTop="16dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

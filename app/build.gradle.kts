@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
+    id("kotlin-parcelize") // ⬅ para @Parcelize en Recipe
 }
 
 android {
@@ -42,6 +43,11 @@ android {
     }
 }
 
+// ⬅ Config extra para kapt (no es obligatorio pero ayuda)
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -55,7 +61,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.4.0")
-    implementation(libs.androidx.room.ktx)
+    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -63,5 +69,11 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    kapt("androidx.room:room-compiler:2.8.4")
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+
+    // 🔹 Room: TODAS las piezas con la MISMA versión
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
 }

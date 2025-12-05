@@ -1,4 +1,4 @@
-package com.example.projectmovil
+package com.example.projectmovil.ui.auth
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -6,14 +6,26 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
-import android.widget.*
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-// --------- ⬇️ IMPORTS NECESARIOS DE ROOM Y COROUTINES ⬇️ ---------
-import com.example.projectmovil.data.database.AppDatabase
+import com.example.projectmovil.R
 import com.example.projectmovil.data.dao.UsuarioDao
+import com.example.projectmovil.data.database.AppDatabase
 import com.example.projectmovil.data.entity.UsuarioEntity
-import kotlinx.coroutines.*
-// -------------------------------------------------------------------
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -27,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        usuarioDao = AppDatabase.getDatabase(applicationContext).usuarioDao()
+        usuarioDao = AppDatabase.Companion.getDatabase(applicationContext).usuarioDao()
 
         // --- Declaración de Vistas ---
         val etFirstName = findViewById<EditText>(R.id.et_first_name)
@@ -107,10 +119,12 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         val unitsHeight = arrayOf("cm", "ft")
-        spHeightUnit.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, unitsHeight)
+        spHeightUnit.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, unitsHeight)
 
         val unitsWeight = arrayOf("kg", "lb")
-        spWeightUnit.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, unitsWeight)
+        spWeightUnit.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, unitsWeight)
 
         val activityLevels = arrayOf(
             "Seleccionar nivel de actividad",
@@ -120,7 +134,8 @@ class RegisterActivity : AppCompatActivity() {
             "Activo (ejercicio 6-7 días/semana)",
             "Muy activo (ejercicio intenso diario)"
         )
-        spActivityLevel.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, activityLevels)
+        spActivityLevel.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, activityLevels)
 
         // Listener para calcular IMC automáticamente
         val bmiCalculator = {
@@ -149,7 +164,7 @@ class RegisterActivity : AppCompatActivity() {
 
         // Calcular IMC cuando cambia la unidad de altura
         spHeightUnit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 bmiCalculator()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -157,7 +172,7 @@ class RegisterActivity : AppCompatActivity() {
 
         // Calcular IMC cuando cambia la unidad de peso
         spWeightUnit.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 bmiCalculator()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -321,13 +336,21 @@ class RegisterActivity : AppCompatActivity() {
 
                 if (existingUser != null) {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@RegisterActivity, "ERROR: El correo ya está registrado. Intenta iniciar sesión.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "ERROR: El correo ya está registrado. Intenta iniciar sesión.",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 } else {
                     usuarioDao.registrar(nuevoUsuario) // Insertar en Room
 
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@RegisterActivity, "Registro completado exitosamente ✓", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "Registro completado exitosamente ✓",
+                            Toast.LENGTH_LONG
+                        ).show()
                         val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                         startActivity(intent)
                         finish()

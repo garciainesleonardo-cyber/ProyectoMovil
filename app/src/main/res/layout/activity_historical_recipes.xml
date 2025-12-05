@@ -1,75 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F0F5">
+    android:background="#F9F5F0">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="20dp">
 
-        <!-- Header -->
-        <RelativeLayout
+        <!-- Botón atrás -->
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Regresar"
+            android:padding="6dp"
+            android:background="@drawable/bg_circle_light" />
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recetas Históricas"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#742844"
+            android:layout_marginTop="16dp" />
+
+        <!-- Subtítulo -->
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:background="@drawable/historical_header_gradient"
-            android:padding="20dp">
+            android:layout_height="wrap_content"
+            android:text="Filtra recetas por tipo, calorías, rating o ingredientes"
+            android:textSize="14sp"
+            android:textColor="#555"
+            android:layout_marginBottom="16dp"/>
 
-            <!-- Botón de regreso -->
-            <ImageView
-                android:id="@+id/btn_back"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@android:drawable/ic_menu_revert"
-                android:tint="#FFFFFF"
-                android:padding="8dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
+        <!-- TARJETA DE FILTROS BONITA -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="20dp"
+            android:elevation="4dp"
+            android:layout_marginBottom="20dp">
 
-            <!-- Título -->
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <!-- Dropdown Tipo -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerInParent="true">
+                android:hint="Tipo de receta"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginBottom="12dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <AutoCompleteTextView
+                    android:id="@+id/filter_type_dropdown"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="📜"
-                    android:textSize="48sp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:padding="12dp"
+                    android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+            <!-- Dropdown Rating -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Rating"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginBottom="12dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/filter_rating_dropdown"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recetas Históricas"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="8dp"/>
+                    android:padding="12dp"
+                    android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+            <!-- Dropdown Ingrediente -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingrediente"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginBottom="12dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/filter_ingredient_dropdown"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Viaja en el tiempo a través de sabores ancestrales"
-                    android:textColor="#E0FFFFFF"
-                    android:textSize="13sp"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"/>
-            </LinearLayout>
+                    android:padding="12dp"
+                    android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        </RelativeLayout>
+            <!-- Dropdown Calorías -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Calorías"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginBottom="16dp">
 
-        <!-- Contenedor de recetas -->
+                <AutoCompleteTextView
+                    android:id="@+id/filter_calories_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Botón limpiar filtros -->
+            <Button
+                android:id="@+id/btn_clear_filters"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Limpiar filtros"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_gradient_historical"
+                android:elevation="4dp"/>
+        </LinearLayout>
+
+        <!-- CONTENEDOR DE RECETAS -->
         <LinearLayout
             android:id="@+id/recipes_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"/>
+            android:orientation="vertical"/>
 
     </LinearLayout>
 

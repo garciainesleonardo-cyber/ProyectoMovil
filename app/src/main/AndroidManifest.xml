@@ -8,11 +8,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProjectMovil"
-        >
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        android:theme="@style/Theme.ProjectMovil"  >
+=======
+        android:theme="@style/Theme.ProjectMovil">
+>>>>>>> Stashed changes
+=======
+        android:theme="@style/Theme.ProjectMovil">
+>>>>>>> Stashed changes
+=======
+        android:theme="@style/Theme.ProjectMovil">
+>>>>>>> Stashed changes
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -22,23 +33,46 @@
         </activity>
 
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.auth.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.auth.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.home.HomeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name="HistoricalRecipesActivity"
-            android:screenOrientation="portrait" />
+            android:name=".ui.history.HistoricalRecipesActivity"
+            android:screenOrientation="portrait"
+            /> <activity
+        android:name=".ui.recipe.RecipeDetailActivity"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="adjustResize" />
+
+        <!-- 🔹 AÑADIR ESTO -->
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- 🔹 AÑADIR ESTO -->
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- 🔹 AÑADIR ESTO -->
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/team_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filtros de recetas"
+        android:textColor="@color/team_primary_dark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp" />
+
+    <!-- Tiempo máximo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tiempo máximo"
+        android:textColor="@color/team_text_on_light"
+        android:textSize="14sp"
+        android:paddingTop="8dp" />
+
+    <Spinner
+        android:id="@+id/sp_max_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" />
+
+    <!-- Costo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Costo aproximado"
+        android:textColor="@color/team_text_on_light"
+        android:textSize="14sp"
+        android:paddingTop="12dp" />
+
+    <Spinner
+        android:id="@+id/sp_cost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" />
+
+    <!-- Ingredientes -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingrediente (para buscar)"
+        android:textColor="@color/team_text_on_light"
+        android:textSize="14sp"
+        android:paddingTop="12dp" />
+
+    <EditText
+        android:id="@+id/et_ingredient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ej. pollo, queso, atún..."
+        android:background="@drawable/bg_edittext_rounded"
+        android:padding="10dp"
+        android:textColor="@color/team_text_on_light"
+        android:textColorHint="@color/team_text_secondary"
+        android:layout_marginTop="4dp" />
+
+    <RadioGroup
+        android:id="@+id/rg_ingredient_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <RadioButton
+            android:id="@+id/rb_include"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Incluir"
+            android:textColor="@color/team_text_on_light"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/rb_exclude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Excluir"
+            android:textColor="@color/team_text_on_light"
+            android:layout_marginStart="16dp" />
+    </RadioGroup>
+
+</LinearLayout>
