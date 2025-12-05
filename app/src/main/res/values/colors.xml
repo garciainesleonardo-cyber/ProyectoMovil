@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_screen">#F0F0F5</color>
+    <color name="text_primary">#333333</color>
+    <color name="header_subtitle_color">#E0FFFFFF</color>
+    <color name="chip_background_color">#E8E8EF</color>
+    <color name="chip_text_color">#444444</color>
 </resources>

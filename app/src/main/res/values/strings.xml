@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">ProjectMovil</string>
+    <string name="header_emoji">📜</string>
+    <string name="header_title">Recetas Históricas</string>
+    <string name="header_subtitle">Sabores ancestrales del mundo</string>
+    <string name="cd_back_button">Botón de regreso a la pantalla anterior</string>
+
+    <string name="filter_by_label">Filter by:</string>
+    <string name="filter_ingredients">🥣 Ingredients</string>
+    <string name="filter_type">🍲 Type</string>
+    <string name="filter_rating">⭐ Rating</string>
+    <string name="filter_calories">🔥 Calories</string>
 </resources>
