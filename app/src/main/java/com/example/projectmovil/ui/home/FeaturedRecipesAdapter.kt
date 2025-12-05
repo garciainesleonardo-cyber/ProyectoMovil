@@ -11,17 +11,18 @@ import com.example.projectmovil.R
 import com.example.projectmovil.model.Recipe
 
 class FeaturedRecipeAdapter(
-    private val recipes: List<Recipe>,
-    private val onItemClick: (Recipe) -> Unit
+    private var recipes: List<Recipe>,
+    private val onRecipeClick: (Recipe) -> Unit
 ) : RecyclerView.Adapter<FeaturedRecipeAdapter.RecipeViewHolder>() {
 
-    inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val cardContainer: CardView = itemView.findViewById(R.id.card_recipe)
-        val image: ImageView = itemView.findViewById(R.id.iv_recipe_image)
-        val title: TextView = itemView.findViewById(R.id.tv_recipe_title)
-        val category: TextView = itemView.findViewById(R.id.tv_recipe_category)
-        val rating: TextView = itemView.findViewById(R.id.tv_recipe_rating)
-        val time: TextView = itemView.findViewById(R.id.tv_recipe_time)
+    inner class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val card: CardView = view.findViewById(R.id.card_recipe)
+        val imgRecipe: ImageView = view.findViewById(R.id.img_recipe)
+        val tvTitle: TextView = view.findViewById(R.id.tv_title)
+        val tvCategory: TextView = view.findViewById(R.id.tv_category)
+        val tvTime: TextView = view.findViewById(R.id.tv_time)
+        val tvPrice: TextView = view.findViewById(R.id.tv_price)
+        val tvRating: TextView = view.findViewById(R.id.tv_rating)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -35,14 +36,23 @@ class FeaturedRecipeAdapter(
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         val recipe = recipes[position]
 
-        holder.title.text = recipe.title
-        holder.category.text = recipe.category
-        holder.rating.text = String.format("%.1f ★", recipe.rating)
-        holder.time.text = "${recipe.timeMinutes} min"
-        holder.image.setImageResource(recipe.imageResId)
+        holder.imgRecipe.setImageResource(recipe.imageResId)
+        holder.tvTitle.text = recipe.title
+        holder.tvCategory.text = recipe.category
+        holder.tvTime.text = "${recipe.timeMinutes} min"
+        holder.tvRating.text = String.format("%.1f ★", recipe.rating)
 
-        holder.cardContainer.setOnClickListener {
-            onItemClick(recipe)
+        // ✔️ maneja null, vacío y normal
+        val priceText = recipe.price?.takeIf { it.isNotBlank() } ?: "$-"
+        holder.tvPrice.text = priceText
+
+        holder.card.setOnClickListener {
+            onRecipeClick(recipe)
         }
+    }
+
+    fun updateData(newList: List<Recipe>) {
+        recipes = newList
+        notifyDataSetChanged()
     }
 }

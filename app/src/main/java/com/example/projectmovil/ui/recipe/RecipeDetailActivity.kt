@@ -21,6 +21,7 @@ class RecipeDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_detail)
 
+        // ⬅ La receta viene por Intent como Serializable
         val recipe = intent.getSerializableExtra("recipe") as? Recipe
         if (recipe == null) {
             Toast.makeText(this, "Error al cargar receta", Toast.LENGTH_SHORT).show()
@@ -42,16 +43,19 @@ class RecipeDetailActivity : AppCompatActivity() {
         val btnShare = findViewById<Button>(R.id.btn_share_recipe)
         val btnAddReview = findViewById<Button>(R.id.btn_add_review)
 
+        // 🔹 Precio formateado con fallback "$-"
+        val formattedPrice = recipe.price?.takeIf { it.isNotBlank() } ?: "$-"
+
         // Llenar datos
         ivImage.setImageResource(recipe.imageResId)
         tvTitle.text = recipe.title
         tvCategory.text = recipe.category
         tvRating.text = String.format("%.1f ★", currentRating)
         tvTime.text = "${recipe.timeMinutes} min"
-        tvPrice.text = recipe.price
+        tvPrice.text = formattedPrice
         tvDescription.text = recipe.description
 
-        // Guardar (por ahora solo Toast)
+        // Guardar (placeholder)
         btnSave.setOnClickListener {
             Toast.makeText(this, "Receta guardada (placeholder)", Toast.LENGTH_SHORT).show()
         }
@@ -63,7 +67,7 @@ class RecipeDetailActivity : AppCompatActivity() {
                 
                 Categoría: ${recipe.category}
                 Tiempo: ${recipe.timeMinutes} min
-                Precio aprox: ${recipe.price}
+                Precio aprox: $formattedPrice
                 
                 ${recipe.description}
             """.trimIndent()
